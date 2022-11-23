@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Chat App</title>
+    <style>
+        #home {
+            color: white;
+        }
+        body {
+            background:
+             linear-gradient(
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)
+                ),url('https://www.indica.today/wp-content/uploads/2021/05/thumbRNS-Jiddu-Krishnamurti-1968.jpg');
+            background-size: cover;  
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <div id="home">
+        <header>
+            <h1 style="margin-left: 100px; font-size: 64px;">Jiddu Krishnamurti Discussion App</h1>
+        </header>
+<br><br>
+        <article style="margin-left: 100px; width: 550px;">
+            <section>
+                Welcome to Jiddu Krishnamurti discussion app.
+                Talk with humans about psychological problems concerning humanity.
+            </section> <br>
+            <button onclick="createRoom()">Join Room</button>
+        </article>
+        <script>
+            const  createRoom = () => window.location.href = '/room'
+        </script>
+    </div>
+</body>
+</html>
