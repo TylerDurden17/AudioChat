@@ -1,9 +1,12 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
 //create a server to use with socket io
 const server = require('http').createServer(app)
 const { v4: uuidV4 } = require('uuid')
 const io = require('socket.io')(server)
+
+const port = process.env.PORT || 3000;
 
 // View engine setup
 app.set('view engine' , 'ejs')
@@ -44,4 +47,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(3000);
+server.listen(port, ()=>{
+    console.log(`running on port ${port}`);
+});
