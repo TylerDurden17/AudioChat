@@ -1,5 +1,5 @@
-require('dotenv').config()
 const express = require('express');
+require('dotenv').config()
 const app = express();
 //create a server to use with socket io
 const server = require('http').createServer(app)
