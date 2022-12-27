@@ -31,7 +31,7 @@ myPeer.on('call', async call => {
     videoContainer.setAttribute("id", "videoContainer");
     const personName = document.createElement('div');
     const personNameInside = document.createElement('div');
-    personNameInside.innerText=`${call.metadata.name} 🔊`
+    personNameInside.innerText = `${call.metadata.name} 🔊`
     personName.append(personNameInside)
 
     answerCall.addEventListener('click', () => {
@@ -193,7 +193,7 @@ const addMyVideo = ( () => {
         executed = true;
         navigator.mediaDevices.getUserMedia({
             video:false,
-            audio:true
+            audio:false
         }).then(stream => {
             addMyVideoStream(myVideo, stream);
         });

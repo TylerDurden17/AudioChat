@@ -14,7 +14,7 @@
 
     <style>
       video {
-        height: 40px;
+        height: 35px;
       }
 
       #videoContainer{
@@ -26,11 +26,12 @@
       }
 
       #video-grid {
-        height: 300px; 
-        max-height: 50%;
+        height: 170px; 
+        max-height: 40%;
         margin: auto;
         width: 50%;
         border: 1px solid slateblue;
+        overflow-y: scroll;
       }
       
       #joinAudioCallButton {
@@ -38,16 +39,27 @@
         width: 50%;
       }
 
-      #texting{
-        right: 20px;
-        width: 26%;
-        position: fixed;
-        bottom: 0;
-        padding-bottom: 10px;
+      @media (max-width: 767px) {
+        #texting {
+          position: fixed;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          padding-bottom: 10px;
+        }
+      }
+
+      @media (min-width: 768px) {
+        #texting {
+          position: fixed;
+          bottom: 0;
+          left: 40%;
+          padding-bottom: 20px;
+        }
       }
 
       #message-container {
-        max-height: 190px;
+        max-height: 140px;
         overflow-y: scroll;
         max-width: 1200px;
         background-color: rgb(95, 95, 43);
@@ -55,6 +67,7 @@
 
       #message-container div {
         background-color: #CCC;
+        max-width: 300px;
         padding: 5px;
       }
 
@@ -71,24 +84,21 @@
 
       #message-input {
         flex-grow: 1;
+        border-radius: 5px;
       }
     </style>
 </head>
 <body>
   <header>
-    <br>
       <h1 style="
           margin: auto;
-          width: 50%;" id="groupName">Jiddu Krishnamurti Discussion App
+          width: 50%;" id="groupName">TalkX
       </h1>
     <br>
   </header>
-
+  <div id="joinAudioCallButton"></div>
   <div id="video-grid"></div>
   <br>
-  
-
-  <div id="joinAudioCallButton"></div>
 
   <div id="texting">
     <div id="message-container"></div>

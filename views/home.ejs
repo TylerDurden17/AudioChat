@@ -6,31 +6,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Chat App</title>
+
     <style>
-        #home {
-            color: white;
-        }
-        body {
-            background:
-             linear-gradient(
-                rgba(0, 0, 0, 0.5),
-                rgba(0, 0, 0, 0.5)
-                ),url('https://www.indica.today/wp-content/uploads/2021/05/thumbRNS-Jiddu-Krishnamurti-1968.jpg');
-            background-size: cover;  
-            background-repeat: no-repeat;
-        }
+header {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+article {
+  font-size: 18px;
+  color: #666;
+  font-family: sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+button{
+    font-family: "Google Sans",Roboto,Arial,sans-serif; 
+    font-size: .875rem;
+    letter-spacing: .0107142857em;
+    font-weight: 500;
+    border: none;
+  cursor: pointer;
+  padding: 15px 32px;
+    border-radius: 4px;
+    background-color: var(--gm-fillbutton-container-color,#1a73e8);
+    color: var(--gm-fillbutton-ink-color,#fff);
+}
+
+@media (max-width: 767px) {
+  header {
+    font-size: 28px;
+  }
+
+  article {
+    font-size: 16px;
+    max-width: 300px;
+    max-height: 200px;
+    overflow: auto;
+  }
+}
+
     </style>
 </head>
 <body>
     <div id="home">
         <header>
-            <h1 style="margin-left: 100px; font-size: 64px;">Jiddu Krishnamurti Discussion App</h1>
+            <a href="https://www.flaticon.com/free-icons/debate" title="debate icons">Debate icons created by Freepik - Flaticon</a>
+            <h1>TalkX</h1>
+            <!--<h1  style="font-size: 64px; text-align: center;">TalkX</h1>-->
         </header>
 <br><br>
-        <article style="margin-left: 100px; width: 550px;">
+        <article style="margin-inline: auto; width: 550px;">
             <section>
-                Welcome to Jiddu Krishnamurti discussion app.
-                Talk with humans about psychological problems concerning humanity.
+                Users can practice speaking on various topics in an audio chat room, with each person having three minutes to share their thoughts and ideas.
             </section> <br>
             <button onclick="createRoom()">Join Room</button>
         </article>

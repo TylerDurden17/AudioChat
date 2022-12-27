@@ -49,4 +49,13 @@ io.on('connection', (socket) => {
 
 server.listen(port, ()=>{
     console.log(`running on port ${port}`);
+
+    if (process.env.NODE_ENV === "production") {
+        // application is running in production mode
+        console.log('running in production mode');
+      } else {
+        // application is running in development mode
+        console.log('running in development mode');
+        
+      }
 });
