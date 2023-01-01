@@ -1,0 +1,166 @@
+.button-5 {
+    align-items: center;
+    background-clip: padding-box;
+    background-color: #fa6400;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+  }
+  
+  .button-5:hover,
+  .button-5:focus {
+    background-color: #fb8332;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  }
+  
+  .button-5:hover {
+    transform: translateY(-1px);
+  }
+  
+  .button-5:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+    transform: translateY(0);
+  }
+  .send-button {
+    background-color: rgba(51, 51, 51, 0.090);
+    border-radius: 8px;
+    border-width: 0;
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 12px;
+    text-align: center;
+    transition: all 200ms;
+    vertical-align: baseline;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+      
+  @media (min-width: 767px) {
+    #bothchats {
+      margin-top: 1rem;
+      display: flex;
+      height: 50vh;
+    }
+    #inner-audio-chat{
+      width: 50%;
+    }
+  }
+
+  video {
+    height: 35px;
+  }
+
+  #videoContainer{
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  #video-grid {
+    height: 170px; 
+    max-height: 40%;
+    margin: auto;
+    width: 50%;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-y: scroll;
+  }
+  #video-grid::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+  }
+  #video-grid::-webkit-scrollbar-thumb {
+    background-color: #2d2d2d;
+    border-radius: 10px;
+  }
+  
+  #joinAudioCallButton {
+    margin: auto;
+    width: 50%;
+  }
+
+  @media (max-width: 767px) {
+    #texting {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      padding-bottom: 10px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    #texting {
+      width: 50%;
+    }
+    #texting-child {
+      width: 50%;
+      margin: auto;
+    }
+  }
+
+  #message-container {
+    max-height: 140px;
+    overflow-y: scroll;
+    max-width: 1200px;
+    /*background-color: rgb(95, 95, 43);*/
+    border-radius: 5px;
+    margin: 5px;
+  }
+
+  #message-container div {
+    background-color: #CCC;
+    /*max-width: 300px;*/
+    padding: 0.2rem;
+  }
+
+  #message-container div:nth-child(2n) {
+    background-color: #FFF;
+  }
+
+  #send-container {
+    max-width: 600px;
+    display: flex;
+    gap: 10px;
+  }
+
+  #message-input {
+    flex-grow: 1;
+    height: 25px;
+    border-radius: 15px;
+          letter-spacing: 0.025em;
+    padding-left: 10px;
+  }

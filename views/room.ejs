@@ -11,82 +11,7 @@
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="script.js" defer></script>
     <title>Chat Room</title>
-
-    <style>
-      video {
-        height: 35px;
-      }
-
-      #videoContainer{
-        border: 1px solid #bbb;
-      }
-
-      span{
-        border: 2px solid orange;
-      }
-
-      #video-grid {
-        height: 170px; 
-        max-height: 40%;
-        margin: auto;
-        width: 50%;
-        border: 1px solid slateblue;
-        overflow-y: scroll;
-      }
-      
-      #joinAudioCallButton {
-        margin: auto;
-        width: 50%;
-      }
-
-      @media (max-width: 767px) {
-        #texting {
-          position: fixed;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          padding-bottom: 10px;
-        }
-      }
-
-      @media (min-width: 768px) {
-        #texting {
-          position: fixed;
-          bottom: 0;
-          left: 40%;
-          padding-bottom: 20px;
-        }
-      }
-
-      #message-container {
-        max-height: 140px;
-        overflow-y: scroll;
-        max-width: 1200px;
-        background-color: rgb(95, 95, 43);
-      }
-
-      #message-container div {
-        background-color: #CCC;
-        max-width: 300px;
-        padding: 5px;
-      }
-
-      #message-container div:nth-child(2n) {
-        background-color: #FFF;
-      }
-
-      #send-container {
-        background-color: white;
-        max-width: 1200px;
-        display: flex;
-        gap: 10px;
-      }
-
-      #message-input {
-        flex-grow: 1;
-        border-radius: 5px;
-      }
-    </style>
+    <link rel="stylesheet" href="room.css">
 </head>
 <body>
   <header>
@@ -94,20 +19,25 @@
           margin: auto;
           width: 50%;" id="groupName">TalkX
       </h1>
-    <br>
   </header>
-  <div id="joinAudioCallButton"></div>
-  <div id="video-grid"></div>
-  <br>
+
+  <article id="bothchats">
+    <div id="inner-audio-chat" >
+      <div id="joinAudioCallButton"></div>
+      <div id="video-grid"></div>
+    </div>
 
   <div id="texting">
-    <div id="message-container"></div>
+    <div id="texting-child">
+      <div id="message-container"></div>
     
-    <form id="send-container">
-        <input placeholder="send message" type="text" id="message-input">
-        <button type="submit" id="send-button">Send</button>
-    </form>
+      <form id="send-container">
+          <input placeholder="send message" type="text" id="message-input">
+          <button class="send-button" type="submit" id="send-button">Send</button>
+      </form>
+    </div>
   </div>
+  </article>
   
 </body>
 </html>

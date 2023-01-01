@@ -9,7 +9,7 @@ const connectedUsers = document.getElementById('connected-users');
 
 const zeroUsers = document.createElement('div');
 if(videoGrid.innerHTML==="") {
-    zeroUsers.innerText = 'Wait until people join'
+    zeroUsers.innerText = 'Wait until people join or add you'
     videoGrid.append(zeroUsers)
 }
 
@@ -25,6 +25,7 @@ myVideo.muted = true;
 myPeer.on('call', async call => {
     const answerCall = document.createElement('button');
     answerCall.innerText = 'answer call';
+    answerCall.classList.add("button-5");
     document.getElementById('joinAudioCallButton').append(answerCall);
 
     const videoContainer = document.createElement('div');
@@ -73,6 +74,7 @@ socket.on('user-connected', (userId, connectedPerson) => {
     const myName = person;
     console.log(myName);
     const addMe = document.createElement('button');
+    addMe.classList.add("button-5");
     addMe.innerText=`add ${connectedPerson}`
     document.getElementById('joinAudioCallButton').append(addMe);
 
