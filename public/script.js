@@ -36,10 +36,17 @@ myPeer.on('call', async call => {
     personName.append(personNameInside)
 
     answerCall.addEventListener('click', () => {
+        let audioTrack = null;
+        toggleMute.addEventListener('click', () => {
+            audioTrack.enabled = !audioTrack.enabled;
+            toggleMute.innerText = audioTrack.enabled ? 'Mute Mic' : 'Unmute Mic';
+        })
         navigator.mediaDevices.getUserMedia({
             video:false,
             audio:true
         }).then(stream => {
+            //mute unmute botton
+            audioTrack = stream.getAudioTracks()[0];
             //addVideoStream(myVideo, stream);
             //answer their call, and send my stream
             call.answer(stream);
@@ -67,6 +74,7 @@ myPeer.on('call', async call => {
         videoContainer.remove();
     });
 })
+const toggleMute = document.getElementById("toggleMute");
 
 //to allow ourselves to be connected to other users
 socket.on('user-connected', (userId, connectedPerson) => {
@@ -78,15 +86,22 @@ socket.on('user-connected', (userId, connectedPerson) => {
     addMe.innerText=`add ${connectedPerson}`
     document.getElementById('joinAudioCallButton').append(addMe);
 
+    let audioTrack = null;
+    toggleMute.addEventListener('click', () => {
+        audioTrack.enabled = !audioTrack.enabled;
+        toggleMute.innerText = audioTrack.enabled ? 'Mute Mic' : 'Unmute Mic';
+    })
     addMe.addEventListener('click', () => {
 
         navigator.mediaDevices.getUserMedia({
             video:false,
             audio:true
         }).then(stream => {
+            //to mute mic
+            audioTrack = stream.getAudioTracks()[0];
             //to allow ourselves to be connected to other users
             connectToNewUser(userId, stream, connectedPerson, myName);
-            addMyVideo();
+            //addMyVideo();
             addMe.remove();
         });
     })
@@ -98,7 +113,8 @@ messageForm.addEventListener('submit', e => {
     const message = messageInput.value;
     appendMessage(`You: ${message}`)
     socket.emit('send-chat-message', message)
-    messageInput.value=''
+    messageInput.value = ''
+    sendButton.disabled = true;
 })
 
 socket.on('chat-message', data => {
@@ -202,3 +218,11 @@ const addMyVideo = ( () => {
       }
     }
 })();
+
+//disable send message button when input is empty
+const messageContent = document.getElementById("message-input");
+const sendButton = document.getElementById("send-button");
+
+messageContent.addEventListener("input", () => {
+    sendButton.disabled = messageContent.value.trim() === ""
+});

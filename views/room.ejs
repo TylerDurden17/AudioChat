@@ -15,16 +15,17 @@
 </head>
 <body>
   <header>
-      <h1 style="
-          margin: auto;
-          width: 50%;" id="groupName">TalkX
-      </h1>
+      <h1 id="groupName">TalkX</h1>
   </header>
 
   <article id="bothchats">
     <div id="inner-audio-chat" >
       <div id="joinAudioCallButton"></div>
       <div id="video-grid"></div>
+      <div style="margin: auto; width: 50%;">
+        <br>
+        <button class="button-5" id="toggleMute">Mute Mic</button>  
+      </div>
     </div>
 
   <div id="texting">
@@ -33,7 +34,7 @@
     
       <form id="send-container">
           <input placeholder="send message" type="text" id="message-input">
-          <button class="send-button" type="submit" id="send-button">Send</button>
+          <button disabled="true" class="send-button" type="submit" id="send-button">Send</button>
       </form>
     </div>
   </div>
