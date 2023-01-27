@@ -44,10 +44,14 @@ io.on('connection', (socket) => {
             socket.broadcast.to(roomId).emit('user-disconnected',
              userId, connectedPerson)
         });
+
+        // socket.on('disconnect-user', () => {
+        //     socket.disconnect();
+        // });
     });
 });
 
-server.listen(port, ()=>{
+server.listen(port, () => {
     console.log(`running on port ${port}`);
 
     if (process.env.NODE_ENV === "production") {

@@ -8,6 +8,7 @@ const person = prompt("Please enter your name");
 const connectedUsers = document.getElementById('connected-users');
 
 const zeroUsers = document.createElement('div');
+
 if(videoGrid.innerHTML==="") {
     zeroUsers.innerText = 'Wait until people join or add you'
     videoGrid.append(zeroUsers)
@@ -21,6 +22,10 @@ myPeer.on('open', id => {
 const myVideo = document.createElement('video')
 myVideo.muted = true;
 //myVideo.style.border = '1px solid red'
+const personName = document.createElement('div');
+const personNameInside = document.createElement('div');
+const nextPerson = document.createElement('div');
+const nextPersonInside = document.createElement('div');
 
 myPeer.on('call', async call => {
     const answerCall = document.createElement('button');
@@ -30,8 +35,6 @@ myPeer.on('call', async call => {
 
     const videoContainer = document.createElement('div');
     videoContainer.setAttribute("id", "videoContainer");
-    const personName = document.createElement('div');
-    const personNameInside = document.createElement('div');
     personNameInside.innerText = `${call.metadata.name} 🔊`
     personName.append(personNameInside)
 
@@ -51,7 +54,7 @@ myPeer.on('call', async call => {
             //answer their call, and send my stream
             call.answer(stream);
             //addVideoStream(myVideo, stream, videoContainer, personName);
-            addMyVideo();
+            //addMyVideo();
 
             //every userId is directly linked to every call we make
             peers[call.peer] = call;
@@ -72,6 +75,11 @@ myPeer.on('call', async call => {
     //when someone closes their video
     call.on('close', () => {
         videoContainer.remove();
+        // Remove the reference to the call from your peers object
+        delete peers[call.peer];
+        personName.innerText = "";
+        call.metadata.name = "";
+        console.log('some');
     });
 })
 const toggleMute = document.getElementById("toggleMute");
@@ -125,6 +133,7 @@ socket.on('user-disconnected', (userId, connectedPerson) => {
     appendMessage(`${connectedPerson} disconnected`);
     if (peers[userId]) {
         peers[userId].close()
+        delete peers[call.peer];
         personName.innerText = ""
         nextPerson.innerText = ""
     }
@@ -149,12 +158,10 @@ async function connectToNewUser(userId, stream, connectedPerson, myName) {
     //const rubb = document.createElement('div')
     const videoContainer = document.createElement('div');
     videoContainer.setAttribute("id", "videoContainer");
-    const nextPerson = document.createElement('div');
-    const nextPersonInside = document.createElement('div');
     nextPersonInside.innerText = `${connectedPerson} 🔊`
     nextPerson.append(nextPersonInside)
     //connectedUsers.append(rubb)
-    //video.muted=true
+    //video.muted = true
     //when they send us back their stream
     //why is this code running twice
     call.on('stream', userVideoStream => {
@@ -166,8 +173,9 @@ async function connectToNewUser(userId, stream, connectedPerson, myName) {
 
     //when someone closes their video
     call.on('close', () => { 
-        videoContainer.remove();  
+        videoContainer.remove();
         //rubb.remove();
+        delete peers[userId];
     });
 
     //every userId is directly linked to every call we make
@@ -204,20 +212,20 @@ function addMyVideoStream(video, stream) {
 }
 
 //closure so this function runs only once when called
-const addMyVideo = ( () => {
-    var executed = false;
-    return () => {
-      if(!executed) {
-        executed = true;
-        navigator.mediaDevices.getUserMedia({
-            video:false,
-            audio:false
-        }).then(stream => {
-            addMyVideoStream(myVideo, stream);
-        });
-      }
-    }
-})();
+// const addMyVideo = ( () => {
+//     var executed = false;
+//     return () => {
+//       if(!executed) {
+//         executed = true;
+//         navigator.mediaDevices.getUserMedia({
+//             video:false,
+//             audio:false
+//         }).then(stream => {
+//             addMyVideoStream(myVideo, stream);
+//         });
+//       }
+//     }
+// })();
 
 //disable send message button when input is empty
 const messageContent = document.getElementById("message-input");
@@ -225,4 +233,18 @@ const sendButton = document.getElementById("send-button");
 
 messageContent.addEventListener("input", () => {
     sendButton.disabled = messageContent.value.trim() === ""
+});
+
+//==============================================================================
+// const disconnectBtn = document.createElement('button');
+// disconnectBtn.innerText="disconnect"
+// document.getElementById('joinAudioCallButton').append(disconnectBtn);
+
+// disconnectBtn.addEventListener('click', () => {
+//     socket.emit('disconnect-user');
+// });
+
+socket.on('disconnect', () => {
+    console.log('You have been disconnected');
+    alert('You have been disconnected.');
 });
