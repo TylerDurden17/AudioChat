@@ -1,7 +1,10 @@
-.button-5 {
+
+
+
+  .buttonAnswer {
     align-items: center;
     background-clip: padding-box;
-    background-color: #fa6400;
+    background-color: #28A828;
     border: 1px solid transparent;
     border-radius: .25rem;
     box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
@@ -27,21 +30,22 @@
     width: auto;
   }
   
-  .button-5:hover,
-  .button-5:focus {
+  .buttonAnswer:hover,
+  .buttonAnswer:focus {
     background-color: #fb8332;
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   }
   
-  .button-5:hover {
+  .buttonAnswer:hover {
     transform: translateY(-1px);
   }
   
-  .button-5:active {
+  .buttonAnswer:active {
     background-color: #c85000;
     box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
     transform: translateY(0);
   }
+
   .send-button {
     background-color: rgba(51, 51, 51, 0.11);
     border-radius: 8px;

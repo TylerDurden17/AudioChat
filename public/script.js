@@ -30,7 +30,7 @@ const nextPersonInside = document.createElement('div');
 myPeer.on('call', async call => {
     const answerCall = document.createElement('button');
     answerCall.innerText = 'answer call';
-    answerCall.classList.add("button-5");
+    answerCall.classList.add("buttonAnswer");
     document.getElementById('joinAudioCallButton').append(answerCall);
 
     const videoContainer = document.createElement('div');
@@ -42,7 +42,7 @@ myPeer.on('call', async call => {
         let audioTrack = null;
         toggleMute.addEventListener('click', () => {
             audioTrack.enabled = !audioTrack.enabled;
-            toggleMute.innerText = audioTrack.enabled ? 'Mute Mic' : 'Unmute Mic';
+            toggleMute.innerText = audioTrack.enabled ? 'Mute Mic' : 'Muted';
         })
         navigator.mediaDevices.getUserMedia({
             video:false,
@@ -71,15 +71,16 @@ myPeer.on('call', async call => {
         if(videoGrid.innerHTML!="") {
             zeroUsers.remove()
         }
-    })
+    });
     //when someone closes their video
     call.on('close', () => {
         videoContainer.remove();
         // Remove the reference to the call from your peers object
         delete peers[call.peer];
+        peers[call.peer].close()
         personName.innerText = "";
         call.metadata.name = "";
-        console.log('some');
+        //alert('Call ended');
     });
 })
 const toggleMute = document.getElementById("toggleMute");
@@ -90,14 +91,14 @@ socket.on('user-connected', (userId, connectedPerson) => {
     const myName = person;
     console.log(myName);
     const addMe = document.createElement('button');
-    addMe.classList.add("button-5");
+    addMe.classList.add("buttonAddCall");
     addMe.innerText=`add ${connectedPerson}`
     document.getElementById('joinAudioCallButton').append(addMe);
 
     let audioTrack = null;
     toggleMute.addEventListener('click', () => {
         audioTrack.enabled = !audioTrack.enabled;
-        toggleMute.innerText = audioTrack.enabled ? 'Mute Mic' : 'Unmute Mic';
+        toggleMute.innerText = audioTrack.enabled ? 'Mute Mic' : 'Muted';
     })
     addMe.addEventListener('click', () => {
 
@@ -133,7 +134,7 @@ socket.on('user-disconnected', (userId, connectedPerson) => {
     appendMessage(`${connectedPerson} disconnected`);
     if (peers[userId]) {
         peers[userId].close()
-        delete peers[call.peer];
+        delete peers[userId];
         personName.innerText = ""
         nextPerson.innerText = ""
     }
@@ -151,35 +152,38 @@ const peers = {}
 //make calls
 async function connectToNewUser(userId, stream, connectedPerson, myName) {
     const options = {metadata: {"name": myName}}
-    //to call a user we call this with a destination id and our stream
-    const call = myPeer.call(userId, await stream, options);
+        //to call a user we call this with a destination id and our stream, call event is emitted.
+        const call = myPeer.call(userId, stream, options);
 
-    const video = document.createElement('video')
-    //const rubb = document.createElement('div')
-    const videoContainer = document.createElement('div');
-    videoContainer.setAttribute("id", "videoContainer");
-    nextPersonInside.innerText = `${connectedPerson} 🔊`
-    nextPerson.append(nextPersonInside)
-    //connectedUsers.append(rubb)
-    //video.muted = true
-    //when they send us back their stream
-    //why is this code running twice
-    call.on('stream', userVideoStream => {
-        addVideoStream(video, userVideoStream, videoContainer, nextPerson);
-        if(videoGrid.innerHTML!="") {
-            zeroUsers.remove()
-        }
-    })
+        const video = document.createElement('video')
+        //const rubb = document.createElement('div')
+        const videoContainer = document.createElement('div');
+        videoContainer.setAttribute("id", "videoContainer");
+        nextPersonInside.innerText = `${connectedPerson} 🔊`
+        nextPerson.append(nextPersonInside)
+        //video.muted = true
+        //when they send us back their stream
+        //why is this code running twice
+        call.on('stream', userVideoStream => {
+            addVideoStream(video, userVideoStream, videoContainer, nextPerson);
+            if(videoGrid.innerHTML!="") {
+                zeroUsers.remove()
+            }
+        })
 
-    //when someone closes their video
-    call.on('close', () => { 
-        videoContainer.remove();
-        //rubb.remove();
-        delete peers[userId];
-    });
+        //when someone closes their video
+        call.on('close', () => { 
+            videoContainer.remove();
+            //rubb.remove();
+            delete peers[userId];
 
-    //every userId is directly linked to every call we make
-    peers[userId] = call;
+            peers[userId].close();
+            
+        });
+
+        //every userId is directly linked to every call we make
+        peers[userId] = call;
+
 }
 
 function addVideoStream(video, stream, videoContainer, nextPerson) {
@@ -193,23 +197,23 @@ function addVideoStream(video, stream, videoContainer, nextPerson) {
     videoContainer.append(nextPerson)
 }
 
-function addMyVideoStream(video, stream) {
-    const videoContainer = document.createElement('div');
-    videoContainer.setAttribute("id", "videoContainer");
-    video.srcObject = stream
-    //once the stream is loaded play
-    video.addEventListener('loadedmetadata', () => {
-      video.play();
-    })
-    videoGrid.append(videoContainer)
-    videoContainer.append(video);
+// function addMyVideoStream(video, stream) {
+//     const videoContainer = document.createElement('div');
+//     videoContainer.setAttribute("id", "videoContainer");
+//     video.srcObject = stream
+//     //once the stream is loaded play
+//     video.addEventListener('loadedmetadata', () => {
+//       video.play();
+//     })
+//     videoGrid.append(videoContainer)
+//     videoContainer.append(video);
 
-    const you = document.createElement('div')
-    const youInside = document.createElement('div');
-    youInside.innerText='You'
-    videoContainer.append(you);
-    you.append(youInside)
-}
+//     const you = document.createElement('div')
+//     const youInside = document.createElement('div');
+//     youInside.innerText='You'
+//     videoContainer.append(you);
+//     you.append(youInside)
+// }
 
 //closure so this function runs only once when called
 // const addMyVideo = ( () => {
@@ -236,15 +240,16 @@ messageContent.addEventListener("input", () => {
 });
 
 //==============================================================================
-// const disconnectBtn = document.createElement('button');
-// disconnectBtn.innerText="disconnect"
-// document.getElementById('joinAudioCallButton').append(disconnectBtn);
+const disconnectBtn = document.createElement('button');
+disconnectBtn.innerText="disconnect"
+document.getElementById('callButtons').append(disconnectBtn);
 
-// disconnectBtn.addEventListener('click', () => {
-//     socket.emit('disconnect-user');
-// });
+disconnectBtn.addEventListener('click', () => {
+    socket.emit('disconnect-user');
+});
 
 socket.on('disconnect', () => {
     console.log('You have been disconnected');
     alert('You have been disconnected.');
+    window.location.href='/'
 });
