@@ -197,39 +197,39 @@ function addVideoStream(video, stream, videoContainer, nextPerson) {
     videoContainer.append(nextPerson)
 }
 
-// function addMyVideoStream(video, stream) {
-//     const videoContainer = document.createElement('div');
-//     videoContainer.setAttribute("id", "videoContainer");
-//     video.srcObject = stream
-//     //once the stream is loaded play
-//     video.addEventListener('loadedmetadata', () => {
-//       video.play();
-//     })
-//     videoGrid.append(videoContainer)
-//     videoContainer.append(video);
+function addMyVideoStream(video, stream) {
+    const videoContainer = document.createElement('div');
+    videoContainer.setAttribute("id", "videoContainer");
+    video.srcObject = stream
+    //once the stream is loaded play
+    video.addEventListener('loadedmetadata', () => {
+      video.play();
+    })
+    videoGrid.append(videoContainer)
+    videoContainer.append(video);
 
-//     const you = document.createElement('div')
-//     const youInside = document.createElement('div');
-//     youInside.innerText='You'
-//     videoContainer.append(you);
-//     you.append(youInside)
-// }
+    const you = document.createElement('div')
+    const youInside = document.createElement('div');
+    youInside.innerText='You'
+    videoContainer.append(you);
+    you.append(youInside)
+}
 
-//closure so this function runs only once when called
-// const addMyVideo = ( () => {
-//     var executed = false;
-//     return () => {
-//       if(!executed) {
-//         executed = true;
-//         navigator.mediaDevices.getUserMedia({
-//             video:false,
-//             audio:false
-//         }).then(stream => {
-//             addMyVideoStream(myVideo, stream);
-//         });
-//       }
-//     }
-// })();
+closure so this function runs only once when called
+const addMyVideo = ( () => {
+    var executed = false;
+    return () => {
+      if(!executed) {
+        executed = true;
+        navigator.mediaDevices.getUserMedia({
+            video:false,
+            audio:false
+        }).then(stream => {
+            addMyVideoStream(myVideo, stream);
+        });
+      }
+    }
+})();
 
 //disable send message button when input is empty
 const messageContent = document.getElementById("message-input");
