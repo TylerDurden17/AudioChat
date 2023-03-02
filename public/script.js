@@ -215,7 +215,7 @@ function addMyVideoStream(video, stream) {
     you.append(youInside)
 }
 
-closure so this function runs only once when called
+//closure so this function runs only once when called
 const addMyVideo = ( () => {
     var executed = false;
     return () => {
